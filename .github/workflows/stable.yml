@@ -3,10 +3,7 @@ on:
   # but only for the main branch
   push:
     branches:
-      - qa
       - master
-      - main
-
 
 name: Deploy Updates to Stable Envs
 

@@ -34,7 +34,7 @@ global:
     secret:
       devOps: devops-secret
   vault:
-    enabled: true
+    enabled: false
     hashicorp:
       serviceAccountName: vault-auth
       annotations:
