@@ -17,6 +17,15 @@
 #     name: pingfederate
 #     tag: 10.2.0-edge
 #     pullPolicy: Always
+pingfederate-admin:
+  enabled: true
+  envs:
+    PF_CONSOLE_AUTHENTICATION: NATIVE
+    SERVER_PROFILE_BASE_PATH: profiles/pingfederate
+    SERVER_PROFILE_BASE_URL: https://github.com/PandikKumar/citadel
+    SERVER_PROFILE_PARENT: BASE
+    SERVER_PROFILE_PATH: profiles/pingfederate_admin
+    SERVER_PROFILE_URL: https://github.com/PandikKumar/citadel
 
 # #############################################################
 # # pingfederate-engine values
@@ -31,27 +40,10 @@ pingfederate-engine:
 #   clustering:
 #     autoscaling:
 #       enabled: false
+  enabled: true
+  envs:
+    PF_CONSOLE_AUTHENTICATION: NATIVE
+    SERVER_PROFILE_PATH: profiles/pingfederate
+    SERVER_PROFILE_URL: https://github.com/PandikKumar/citadel
   container:
     replicaCount: 1
-
-#############################################################
-# pingdirectory values
-#############################################################
-pingdirectory:
-  # enabled: true
-  # envs:
-  #   SERVER_PROFILE_PATH: profiles/pingdirectory
-  #   SERVER_PROFILE_URL: https://github.com/pingdevopsprogram/reference-cicd 
-  #   MAKELDIF_USERS: "2000"
-  container:
-    replicaCount: 1
-
-#############################################################
-# pingdataconsole values
-#############################################################
-# pingdataconsole:
-#   enabled: true
-  # envs:
-  #   SERVER_PROFILE_URL: https://github.com/pingidentity/pingidentity-server-profiles.git
-  #   SERVER_PROFILE_PATH: baseline/pingdataconsole
-  #   SERVER_PROFILE_BRANCH: master

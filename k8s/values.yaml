@@ -19,7 +19,7 @@ global:
   ingress:
     enabled: true
     addReleaseNameToHost: prepend
-    defaultDomain: ping-devops.com
+    defaultDomain: likemindscloud.com
     defaultTlsSecret:
     annotations:
       # nginx example
@@ -191,25 +191,3 @@ pingfederate-engine:
       timeoutSeconds: 5
       successThreshold: 1
       failureThreshold: 4
-
-#############################################################
-# pingdirectory values
-#############################################################
-pingdirectory:
-  enabled: true
-  envs:
-    SERVER_PROFILE_PATH: profiles/pingdirectory
-    SERVER_PROFILE_URL: https://github.com/pingdevopsprogram/reference-cicd 
-    MAKELDIF_USERS: "2000"
-  container:
-    replicaCount: 3
-
-#############################################################
-# pingdataconsole values
-#############################################################
-pingdataconsole:
-  enabled: true
-  envs:
-    SERVER_PROFILE_URL: https://github.com/pingidentity/pingidentity-server-profiles.git
-    SERVER_PROFILE_PATH: baseline/pingdataconsole
-    SERVER_PROFILE_BRANCH: master
