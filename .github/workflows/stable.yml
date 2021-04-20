@@ -65,26 +65,26 @@ jobs:
     #     SLACK_WEBHOOK_ID: ${{ secrets.SLACK_WEBHOOK_ID }}
       # eval sha of profile dirs and deploy chart
     - name: Deploy Changes
-      env:
-        P1_ADMIN_ENV_ID: ${{ secrets.P1_ADMIN_ENV_ID}}
-        PF_ADMIN_WORKER_ID: ${{ secrets.PF_ADMIN_WORKER_ID}}
-        PF_ADMIN_WORKER_SECRET: ${{ secrets.PF_ADMIN_WORKER_SECRET}}
+      # env:
+      #   P1_ADMIN_ENV_ID: ${{ secrets.P1_ADMIN_ENV_ID}}
+      #   PF_ADMIN_WORKER_ID: ${{ secrets.PF_ADMIN_WORKER_ID}}
+      #   PF_ADMIN_WORKER_SECRET: ${{ secrets.PF_ADMIN_WORKER_SECRET}}
       run: |
         export REF=$(echo $GITHUB_REF | sed -e "s#refs/heads/##g")
         sh ci_tools/helm_deploy.sh
-    - name: Integration Test
-      run: ci_tools/run_postman.sh k8s/integrationtest.yaml
+ #   - name: Integration Test
+ #     run: ci_tools/run_postman.sh k8s/integrationtest.yaml
     # - name: Environment Info
     #   run: echo "Your environment is ready, check Slack!"
         # set -a
         # source ci_tools/ci_tools.lib.sh
         # kubectl get ing -l app.kubernetes.io/instance=${RELEASE} -o=custom-columns="NAME:.metadata.name,HOST:.spec.rules[*].host"
 
-    - name: pull-request-action
-      if: "! contains(github.event.ref, 'master')"
-      uses: vsoch/pull-request-action@1.0.12
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        PULL_REQUEST_BRANCH: "master"
-        PASS_IF_EXISTS: "yes"
-        PASS_ON_ERROR: "yes"
+  #  - name: pull-request-action
+  #    if: "! contains(github.event.ref, 'master')"
+  #    uses: vsoch/pull-request-action@1.0.12
+  #    env:
+  #      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+  #      PULL_REQUEST_BRANCH: "master"
+  #      PASS_IF_EXISTS: "yes"
+  #     PASS_ON_ERROR: "yes"
