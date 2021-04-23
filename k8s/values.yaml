@@ -72,7 +72,7 @@ pingfederate-admin:
   secretVolumes:
     pf-master-key:
       items:
-        pf.jwk: /opt/in/instance/server/default/data/pftest.jwk
+        pf.jwk: /opt/out/instance/server/default/data/pftest.jwk
   envs:
     PF_CONSOLE_AUTHENTICATION: OIDC
     PF_ADMIN_API_AUTHENTICATION: NATIVE
