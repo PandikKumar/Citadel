@@ -51,7 +51,20 @@ global:
       - name: devops-secret.env
         secret: devops-secret.env
   envs:
+    ADMIN_LDAP_URL: ldaps://f5-gdc.citadelgroup.com
+    PF-LDAP-USERNAME: TestUser
+    PF-LDAP-PASSWORD: TestPassword
+    ADMIN_USER_BASE_DN: DC=citadelgroup,DC=com
+    ADMIN_GROUP_BASE_DN: OU=Security,OU=Citadel-Groups,DC=citadelgroup,DC=com 
+    ADMIN_LDAP_USER_FILTER: (&(objectclass=person)(sAMAccountName=${0})(extensionAttribute14=user))
+    ADMIN_LDAP_GROUP_ATTR: memberOf
+    ADMIN_LDAP_ROLE_ADMIN: CN=pingfederate-admin,OU=Security,OU=Citadel-Groups,DC=citadelgroup,DC=com
+    ADMIN_LDAP_ROLE_CRYPTO: CN=pingfederate-crypto-admin,OU=Security,OU=Citadel-Groups,DC=citadelgroup,DC=com
+    ADMIN_LDAP_ROLE_USER: CN=pingfederate-admin,OU=Security,OU=Citadel-Groups,DC=citadelgroup,DC=com
+    ADMIN_LDAP_ROLE_AUDIT: CN=pingfederate-auditor,OU=Security,OU=Citadel-Groups,DC=citadelgroup,DC=com
     PING_IDENTITY_ACCEPT_EULA: "YES"
+    MUTE_LICENSE_VERIFICATION: "yes"
+
     # need this because it's part of config, but not
     # PD_DELEGATOR_HTTPS_PUBLIC_PORT: "443"
     
@@ -69,12 +82,12 @@ pingfederate-admin:
     name: pingfederate
     # tag: 10.2.0-edge
     pullPolicy: Always
-  secretVolumes:
-    pf-master-key:
-      items:
-        pf.jwk: /opt/in/instance/server/default/data/pf.jwk
+  # secretVolumes:
+  #   pf-master-key:
+  #     items:
+  #       pf.jwk: /opt/in/instance/server/default/data/pf.jwk
   envs:
-    PF_CONSOLE_AUTHENTICATION: OIDC
+    PF_CONSOLE_AUTHENTICATION: NATIVE
     PF_ADMIN_API_AUTHENTICATION: NATIVE
     SERVER_PROFILE_BASE_PATH: profiles/pingfederate
     SERVER_PROFILE_BASE_URL: https://github.com/pingdevopsprogram/reference-cicd
@@ -84,7 +97,7 @@ pingfederate-admin:
     PF_ADMIN_PORT: "443"
     PF_LOG_LEVEL: "DEBUG"
     # data.json.subst specific vars. 
-    # PA_ENGINE_PRIVATE_PORT_HTTPS: "3000" 
+    # PA_ENGINE_PRIVATE_PORT_HTTPS: "3000"
     PD_DELEGATOR_HTTPS_PUBLIC_PORT: "443"
     # will change per branch (should be a variable? should come from vault?)
     # PF_OIDC_CLIENT_ID: ""
@@ -175,7 +188,7 @@ pingfederate-engine:
   #     maxReplicas: 6
   #     targetCPUUtilizationPercentage: 75
   container:
-    replicaCount: 3
+    replicaCount: 1
   probes:
     liveness:
       command: /opt/liveness.sh
